@@ -60,9 +60,7 @@ locals {
   cpu_memory_unit = 1024
 
   server_requirements = {
-    # cpu             = 2 * local.cpu_memory_unit
-    cpu = 4 * local.cpu_memory_unit
-    # memory          = 5 * local.cpu_memory_unit
+    cpu             = 4 * local.cpu_memory_unit
     memory          = 16 * local.cpu_memory_unit
     docker_registry = "dependencytrack/apiserver"
   }

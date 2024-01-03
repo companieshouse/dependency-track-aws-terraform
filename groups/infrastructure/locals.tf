@@ -1,10 +1,10 @@
 # Define all hardcoded local variable and local variables looked up from data resources
 locals {
-  stack_name                       = "dependency-track" # this must match the stack name the service deploys into
-  name_prefix                      = "${local.stack_name}-${var.environment}"
-  service_name                     = "dependency-track"
-  rand_stack_name                  = "rand"
-  application_subnet_ids           = data.aws_subnets.application.ids
+  stack_name             = "dependency-track" # this must match the stack name the service deploys into
+  name_prefix            = "${local.stack_name}-${var.environment}"
+  service_name           = "dependency-track"
+  rand_stack_name        = "rand"
+  application_subnet_ids = data.aws_subnets.application.ids
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
 
