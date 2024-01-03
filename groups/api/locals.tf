@@ -3,12 +3,12 @@ locals {
   name_prefix                      = "${local.stack_name}-${var.environment}"
   service_name                     = "dep-track-api"
   rand_stack_name                  = "rand"
-  container_port                   = "8080" # default node port required here until prod docker container is built allowing port change via env var
+  container_port                   = "8080"
   docker_repo                      = "docker.io"
   server_lb_listener_rule_priority = 6
   healthcheck_interval             = 300
   healthcheck_path                 = "/health"
-  healthcheck_matcher              = "200-299" # no explicit healthcheck in this service yet, change this when added!
+  healthcheck_matcher              = "200-299"
   application_subnet_ids           = data.aws_subnets.application.ids
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)

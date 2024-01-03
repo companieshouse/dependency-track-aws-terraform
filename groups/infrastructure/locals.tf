@@ -4,12 +4,6 @@ locals {
   name_prefix                      = "${local.stack_name}-${var.environment}"
   service_name                     = "dependency-track"
   rand_stack_name                  = "rand"
-  container_port                   = "8080" # default node port required here until prod docker container is built allowing port change via env var
-  docker_repo                      = "docker.io"
-  server_lb_listener_rule_priority = 6
-  client_lb_listener_rule_priority = 5
-  healthcheck_path                 = "/"
-  healthcheck_matcher              = "200" # no explicit healthcheck in this service yet, change this when added!
   application_subnet_ids           = data.aws_subnets.application.ids
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
@@ -29,11 +23,4 @@ locals {
   db_password             = random_password.db_password.result
   db_name                 = "dtrack"
   kms_alias               = "alias/${var.aws_profile}/environment-services-kms"
-
-  # create a map of secret name => secret arn to pass into ecs service module
-  # using the trimprefix function to remove the prefixed path from the secret name
-  secrets_arn_map = {
-    for sec in data.aws_ssm_parameter.secret :
-    trimprefix(sec.name, "/${local.name_prefix}/") => sec.arn
-  }
 }
