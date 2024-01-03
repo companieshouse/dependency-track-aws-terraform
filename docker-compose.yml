@@ -1,7 +1,9 @@
 version: '3.7'
 
 #####################################################
-# This Docker Compose file contains three services
+# This Docker Compose file contains four services
+# simulating Companies House deployment
+#    API Proxy
 #    Dependency-Track API Server
 #    Dependency-Track FrontEnd
 #    WebService proxy
