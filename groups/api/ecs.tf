@@ -1,5 +1,5 @@
 module "server-ecs-service" {
-  source = "./modules/ecs-service"
+  source = "../modules/ecs-service"
 
   # Environmental configuration
   environment             = var.environment
@@ -7,6 +7,7 @@ module "server-ecs-service" {
   aws_profile             = var.aws_profile
   vpc_id                  = data.aws_vpc.vpc.id
   ecs_cluster_id          = data.aws_ecs_cluster.rand.id
+  ecs_cluster_name        = data.aws_ecs_cluster.rand.cluster_name
   task_execution_role_arn = data.aws_iam_role.ecs-task-execution-role.arn
 
   # Load balancer configuration

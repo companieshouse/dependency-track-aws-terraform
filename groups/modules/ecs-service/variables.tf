@@ -27,6 +27,12 @@ variable "ecs_cluster_id" {
   description = "The ID of the ECS cluster the ECS service will be created in."
 }
 
+variable "ecs_cluster_name" {
+  type = string
+  description = "The name of the ecs cluster"
+  default = ""
+}
+
 variable "task_execution_role_arn" {
   type        = string
   description = "The ARN of the IAM role to use to create and launch the ECS service tasks."

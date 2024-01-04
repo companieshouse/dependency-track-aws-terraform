@@ -1,5 +1,5 @@
 locals {
-  ecs_cluster_name = "${var.name_prefix}-cluster"
+  ecs_cluster_name = var.ecs_cluster_name == "" ? "${var.name_prefix}-cluster" : var.ecs_cluster_name
 
   default_tags = merge(var.default_tags,
     {
