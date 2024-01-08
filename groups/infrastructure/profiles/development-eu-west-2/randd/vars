@@ -1,0 +1,16 @@
+applications_developer_version = "4.9.1"
+aws_profile = "development-eu-west-2"
+aws_region = "eu-west-2"
+desired_task_count = 1
+docker_registry = "docker.io"
+environment = "randd"
+max_task_count = 1
+required_cpus = 2048
+required_memory = 5120
+service_autoscale_enabled = false
+service_autoscale_target_value_cpu = 1
+service_scaledown_schedule = "30 18 Mon-Fri * * ?"
+service_scaleup_schedule = "30 6 Mon-Fri * * ?"
+use_fargate = true
+enable_deletion_protection = false
+db_username = "dtrack"
