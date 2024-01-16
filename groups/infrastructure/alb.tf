@@ -12,7 +12,7 @@ module "alb" {
   create_security_group = true
 
   ingress_prefix_list_ids = local.asg_ingress_prefix_list
-  ingress_cidrs           = split(",", local.additional_ip_ranges)
+  ingress_cidrs           = nonsensitive(split(",", local.additional_ip_ranges))
   redirect_http_to_https  = true
   service_configuration = {
     default = {
