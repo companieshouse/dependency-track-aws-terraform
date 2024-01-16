@@ -66,6 +66,10 @@ data "aws_ec2_managed_prefix_list" "admin" {
   name = local.admin_prefix_list_name
 }
 
+data "aws_ec2_managed_prefix_list" "shared_services_management" {
+  name = local.shared_services_management_prefix_list_name
+}
+
 # retrieve all secrets for this stack using the stack path
 data "aws_ssm_parameters_by_path" "secrets" {
   path = "/${local.name_prefix}"
@@ -83,4 +87,3 @@ data "aws_route53_zone" "dev_hosted_zone" {
 data "aws_kms_key" "kms_key" {
   key_id = local.kms_alias
 }
-

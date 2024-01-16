@@ -8,13 +8,15 @@ locals {
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
 
-  vpc_name                     = local.stack_secrets["vpc_name"]
-  public_subnets_name_pattern  = local.stack_secrets["public_subnet_pattern"]
-  private_subnets_name_pattern = local.stack_secrets["private_subnet_pattern"]
-  dev_hosted_zone_name         = local.stack_secrets["dev_hosted_zone_name"]
-  admin_prefix_list_name       = local.stack_secrets["admin_prefix_list_name"]
+  vpc_name                                    = local.stack_secrets["vpc_name"]
+  public_subnets_name_pattern                 = local.stack_secrets["public_subnet_pattern"]
+  private_subnets_name_pattern                = local.stack_secrets["private_subnet_pattern"]
+  dev_hosted_zone_name                        = local.stack_secrets["dev_hosted_zone_name"]
+  admin_prefix_list_name                      = local.stack_secrets["admin_prefix_list_name"]
+  shared_services_management_prefix_list_name = local.stack_secrets["shared_services_management_prefix_list_name"]
+  additional_ip_ranges = local.stack_secrets["additional_ip_ranges"]
 
-  asg_ingress_prefix_list = [data.aws_ec2_managed_prefix_list.admin.id]
+  asg_ingress_prefix_list = [data.aws_ec2_managed_prefix_list.admin.id, data.aws_ec2_managed_prefix_list.shared_services_management.id]
 
   dependency_track_host_name = "dependency-track.rand.${local.dev_hosted_zone_name}"
 

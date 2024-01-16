@@ -28,9 +28,9 @@ variable "ecs_cluster_id" {
 }
 
 variable "ecs_cluster_name" {
-  type = string
+  type        = string
   description = "The name of the ecs cluster"
-  default = ""
+  default     = ""
 }
 
 variable "task_execution_role_arn" {
