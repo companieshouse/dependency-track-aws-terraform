@@ -1,0 +1,12 @@
+applications_developer_version = "4.10.0"
+aws_profile = "development-eu-west-2"
+aws_region = "eu-west-2"
+desired_task_count = 1
+docker_registry = "docker.io"
+environment = "randd"
+service_autoscale_enabled = false
+service_autoscale_target_value_cpu = 1
+service_scaledown_schedule = "30 20 ? * MON-FRI *"
+service_scaleup_schedule = "30 5 ? * MON-FRI *"
+use_fargate = true
+max_task_count = 1
