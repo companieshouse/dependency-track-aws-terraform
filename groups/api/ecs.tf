@@ -1,3 +1,7 @@
+/*
+* Provisions an ECS Service running the Dependency Track server.
+*/
+
 module "server-ecs-service" {
   source = "../modules/ecs-service"
 
@@ -30,8 +34,6 @@ module "server-ecs-service" {
   # Service configuration
   service_name = local.service_name
   name_prefix  = local.service_name
-
-  # Service Healthcheck configuration
 
   # Service performance and scaling configs
   desired_task_count = var.desired_task_count

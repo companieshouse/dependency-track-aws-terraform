@@ -1,3 +1,7 @@
+/*
+* Generates a random password for the administrator user and stores in parameter store
+*/
+
 resource "random_password" "admin_password" {
   length           = 13
   special          = true

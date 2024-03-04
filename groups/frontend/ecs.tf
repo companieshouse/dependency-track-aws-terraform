@@ -1,3 +1,7 @@
+/*
+* Provisions an ECS Service running the Dependency Track front end.
+*/
+
 module "client-ecs-service" {
   source = "../modules/ecs-service"
 

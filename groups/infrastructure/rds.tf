@@ -1,3 +1,7 @@
+/*
+* Creates a Postgres RDS instance
+*/
+
 resource "random_password" "db_password" {
   length           = 20
   special          = true
@@ -12,6 +16,8 @@ resource "aws_security_group" "security_group" {
   name   = "${local.name_prefix}-db-sg"
   vpc_id = data.aws_vpc.vpc.id
 
+  # Reimplement the default Security Group behaviour - allow
+  # all traffic out
   egress {
     from_port   = 0
     to_port     = 0
@@ -19,6 +25,7 @@ resource "aws_security_group" "security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Allow all traffic from within the VPC into the database
   ingress {
     from_port   = 5432
     to_port     = 5432

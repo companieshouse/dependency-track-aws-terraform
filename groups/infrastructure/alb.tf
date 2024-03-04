@@ -1,3 +1,7 @@
+/*
+* Creates an Application Load Balancer which can serve requests from Companies House
+* IP Ranges (using the prefix lists)
+*/
 module "alb" {
   source = "git@github.com:companieshouse/terraform-modules//aws/application_load_balancer?ref=1.0.205"
 

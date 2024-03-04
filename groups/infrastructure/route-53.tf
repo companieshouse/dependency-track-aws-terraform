@@ -1,3 +1,7 @@
+/*
+* Creates a Route53 A record (with SSL) for dependency track (i.e. dependency-track.<hosted-zone-name>)
+*/
+
 resource "aws_acm_certificate" "certificate" {
   domain_name       = local.dependency_track_host_name
   validation_method = "DNS"

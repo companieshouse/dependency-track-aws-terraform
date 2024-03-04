@@ -1,3 +1,8 @@
+/*
+* Creates an ECR repository which holds only tagged images (keeps
+* untagged images for 7 days.)
+*/
+
 resource "aws_ecr_repository" "proxy_sidecar" {
   name                 = "${local.name_prefix}-proxy-sidecar"
   image_tag_mutability = "MUTABLE"
@@ -15,7 +20,7 @@ resource "aws_ecr_lifecycle_policy" "lifecycle" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire images older than 7 days",
+            "description": "Expire untagged images older than 7 days",
             "selection": {
                 "tagStatus": "untagged",
                 "countType": "sinceImagePushed",

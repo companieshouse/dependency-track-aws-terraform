@@ -1,3 +1,6 @@
+/*
+* Creates an IAM Role for use by ECS when running tasks with necessary permissions.
+*/
 resource "aws_iam_role" "ecs-task-execution-role" {
   name               = "${local.name_prefix}-ecs-task-execution-role"
   path               = "/"
@@ -23,6 +26,9 @@ data "aws_iam_policy_document" "ecs-task-execution-policy" {
   }
 }
 
+# Pretty standard policy allowing logging, SSM access etc. but also grants
+# full EFS permissions to allow it to connect to and manage its EFS
+# file share
 resource "aws_iam_role_policy" "ecs-task-execution-policy" {
   name = "ecs-task-execution-policy"
   role = aws_iam_role.ecs-task-execution-role.id

@@ -1,3 +1,9 @@
+/*
+* Creates an encrypted EFS volume to persist Dependency Track server state. Dependency
+* Track server does not like being run in ephemeral environments therefore the EFS
+* share stores this information therefore when a new task is started.
+*/
+
 resource "aws_kms_key" "efs" {
   description = "KMS Key to encrypt dependency-track efs"
 }

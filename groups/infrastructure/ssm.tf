@@ -1,3 +1,8 @@
+/*
+* Creates the SSM Parameters with important details about Dependency Track
+* to be consumed by other groups.
+*/
+
 resource "aws_ssm_parameter" "dependency_track_domain" {
   name   = "/${local.name_prefix}/domain"
   type   = "SecureString"
