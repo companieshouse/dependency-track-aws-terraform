@@ -3,7 +3,7 @@
 */
 
 module "client-ecs-service" {
-  source = "../modules/ecs-service"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-service?ref=feature/additional-containers-ecs-service"
 
   # Environmental configuration
   environment             = var.environment

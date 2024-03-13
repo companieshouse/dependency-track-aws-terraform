@@ -76,31 +76,5 @@ locals {
 
   sidecar_environment = []
   sidecar_secrets     = []
-  sidecar_container   = <<EOF
-{
-  "name": "proxy-sidecar",
-  "image": "${data.aws_ecr_repository.proxy_sidecar.repository_url}:${var.sidecar_version}",
-  "cpu": ${local.sidecar_requirements.cpu},
-  "memory": ${local.sidecar_requirements.memory},
-  "portMappings": [{
-      "containerPort": ${var.sidecar_port},
-      "hostPort": ${var.sidecar_port},
-      "protocol": "tcp"
-  }],
-  "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-          "awslogs-create-group": "true",
-          "awslogs-region": "${var.aws_region}",
-          "awslogs-group": "/ecs/${local.name_prefix}/proxy-sidecar/${local.service_name}",
-          "awslogs-stream-prefix": "ecs"
-      }
-  },
-  "dependsOn": [{
-    "containerName": "${local.service_name}",
-    "condition": "START"
-  }],
-  "essential": true
-}}
-EOF
+  sidecar_container_name = "proxy-sidecar"
 }
