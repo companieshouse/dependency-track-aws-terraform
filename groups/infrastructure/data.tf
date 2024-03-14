@@ -26,8 +26,7 @@ data "aws_ecs_cluster" "rand" {
   cluster_name = local.ecs_cluster_name
 }
 
-#Get application subnet IDs
-data "aws_subnets" "application" {
+data "aws_subnets" "monitoring" {
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.vpc.id]
@@ -35,30 +34,7 @@ data "aws_subnets" "application" {
 
   filter {
     name   = "tag:Name"
-    values = [local.private_subnets_name_pattern]
-  }
-}
-
-data "aws_subnets" "database" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.vpc.id]
-  }
-
-  tags = {
-    NetworkType = "private"
-  }
-}
-
-data "aws_subnets" "public" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.vpc.id]
-  }
-
-  filter {
-    name   = "tag:Name"
-    values = [local.public_subnets_name_pattern]
+    values = [local.monitoring_subnets_name_pattern]
   }
 }
 
@@ -80,10 +56,10 @@ data "aws_ssm_parameter" "secret" {
   name     = each.key
 }
 
-data "aws_route53_zone" "dev_hosted_zone" {
-  name = local.dev_hosted_zone_name
-}
-
 data "aws_kms_key" "kms_key" {
   key_id = local.kms_alias
+}
+
+data "aws_acm_certificate" "companies_house" {
+  domain = local.companies_house_domain
 }

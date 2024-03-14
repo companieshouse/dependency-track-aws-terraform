@@ -61,7 +61,7 @@ module "db" {
   family = "postgres14"
 
   create_db_subnet_group = true
-  subnet_ids             = data.aws_subnets.database.ids
+  subnet_ids             = data.aws_subnets.monitoring.ids
 
   deletion_protection = var.enable_deletion_protection
 
