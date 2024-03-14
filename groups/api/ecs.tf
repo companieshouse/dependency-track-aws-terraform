@@ -3,7 +3,7 @@
 */
 
 module "server-ecs-service" {
-  source = "../modules/ecs-service"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-service?ref=1.0.254"
 
   # Environmental configuration
   environment             = var.environment
@@ -41,8 +41,8 @@ module "server-ecs-service" {
   required_cpus      = local.server_requirements.cpu
   required_memory    = local.server_requirements.memory
 
-  service_cpu    = local.task_definition_requirements.cpu
-  service_memory = local.task_definition_requirements.memory
+  total_service_cpu    = local.task_definition_requirements.cpu
+  total_service_memory = local.task_definition_requirements.memory
 
   use_fargate                        = var.use_fargate
   fargate_subnets                    = local.application_subnet_ids
@@ -75,8 +75,24 @@ module "server-ecs-service" {
     "readOnly" : false
   }]
 
-  additional_containers = [local.sidecar_container]
-  target_container      = "proxy-sidecar"
+  additional_sidecar_containers = [{
+    image: "${data.aws_ecr_repository.proxy_sidecar.repository_url}:${var.sidecar_version}",
+    name: local.sidecar_container_name,
+    memory: local.sidecar_requirements.memory,
+    cpu: local.sidecar_requirements.cpu,
+    port_mappings: [{
+      container_port: var.sidecar_port,
+      host_port: var.sidecar_port
+    }],
+    essential: true,
+    depends_on: [
+      {
+        container_name: local.service_name
+      }
+    ]
+  }]
+
+  target_container_name = local.sidecar_container_name
   target_container_port = var.sidecar_port
   wait_for_steady_state = "false"
 }
