@@ -3,12 +3,6 @@
 * to be consumed by other groups.
 */
 
-resource "aws_ssm_parameter" "dependency_track_domain" {
-  name   = "/${local.name_prefix}/domain"
-  type   = "SecureString"
-  value  = local.dependency_track_host_name
-  key_id = data.aws_kms_key.kms_key.id
-}
 
 resource "aws_ssm_parameter" "rand_alb_name" {
   name   = "/${local.name_prefix}/alb_name"
