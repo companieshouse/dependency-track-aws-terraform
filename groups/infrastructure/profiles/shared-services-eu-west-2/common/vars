@@ -1,5 +1,5 @@
 aws_profile = "shared-services-eu-west-2"
 aws_region = "eu-west-2"
-environment = "shared-services"
+environment = "common"
 enable_deletion_protection = false
 db_username = "dependencytrack"
