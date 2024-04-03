@@ -4,7 +4,6 @@ locals {
   name_prefix            = "${local.stack_name}-${var.environment}"
   service_name           = "dependency-track"
   rand_stack_name        = "rand"
-  application_subnet_ids = data.aws_subnets.application.ids
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
 
