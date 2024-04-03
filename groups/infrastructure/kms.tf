@@ -1,3 +1,6 @@
+/*
+* Creates a KMS key to use when encrypting dependency track resources
+*/
 module "kms" {
   source = "git@github.com:companieshouse/terraform-modules//aws/kms?ref=1.0.254"
   kms_key_alias           = local.kms_key_alias

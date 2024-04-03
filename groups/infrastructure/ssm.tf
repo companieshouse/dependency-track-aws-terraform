@@ -48,7 +48,7 @@ resource "aws_ssm_parameter" "url" {
 
 resource "aws_ssm_parameter" "kms_key_alias" {
   name   = "/${local.name_prefix}/kms-key-alias"
-  value  = local.kms_key_alias
+  value  = "alias/${local.kms_key_alias}"
   type   = "SecureString"
   key_id = module.kms.key_id
 }
