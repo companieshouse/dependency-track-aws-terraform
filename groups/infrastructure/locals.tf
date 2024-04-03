@@ -4,6 +4,7 @@ locals {
   name_prefix            = "${local.stack_name}-${var.environment}"
   service_name           = "dependency-track"
   rand_stack_name        = "rand"
+  kms_key_alias          = "${var.aws_profile}/${var.environment}/${local.stack_name}"
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
 
@@ -20,5 +21,4 @@ locals {
   ecs_cluster_name        = "${local.rand_stack_name}-${var.environment}-stack"
   db_password             = random_password.db_password.result
   db_name                 = "dtrack"
-  kms_alias               = "alias/${var.aws_profile}/environment-services-kms"
 }
