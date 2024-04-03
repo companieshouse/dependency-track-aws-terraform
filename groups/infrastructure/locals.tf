@@ -4,7 +4,7 @@ locals {
   name_prefix            = "${local.stack_name}-${var.environment}"
   service_name           = "dependency-track"
   rand_stack_name        = "rand"
-  kms_key_alias          = "alias/${var.aws_profile}/${var.environment}/${local.stack_name}"
+  kms_key_alias          = "${var.aws_profile}/${var.environment}/${local.stack_name}"
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
 
