@@ -52,3 +52,17 @@ resource "aws_ssm_parameter" "kms_key_alias" {
   type   = "SecureString"
   key_id = aws_kms_key.key.id
 }
+
+resource "aws_ssm_parameter" "cluster_name" {
+  name   = "/${local.name_prefix}/stack-cluster-name"
+  value  = aws_ecs_cluster.cluster.name
+  type   = "SecureString"
+  key_id = aws_kms_key.key.id
+}
+
+resource "aws_ssm_parameter" "cluster_id" {
+  name   = "/${local.name_prefix}/stack-cluster-id"
+  value  = aws_ecs_cluster.cluster.id
+  type   = "SecureString"
+  key_id = aws_kms_key.key.id
+}
