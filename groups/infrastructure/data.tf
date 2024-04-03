@@ -61,5 +61,5 @@ data "aws_kms_key" "kms_key" {
 }
 
 data "aws_acm_certificate" "companies_house" {
-  domain = local.companies_house_domain
+  domain = "*.${local.companies_house_domain}"
 }
