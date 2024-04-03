@@ -1,5 +1,15 @@
 provider "aws" {
   region = var.aws_region
+
+  default_tags {
+    tags = {
+      Environment = var.environment
+      StackName   = local.stack_name
+      Terraform   = true
+      Version     = var.version
+      Repository  = "companieshouse/dependency-track-aws-terraform"
+    }
+  }
 }
 
 terraform {

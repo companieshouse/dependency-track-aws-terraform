@@ -13,3 +13,7 @@ variable "db_username" {
 variable "enable_deletion_protection" {
   type = bool
 }
+variable "version" {
+  type = string
+  default = "0.1.0"
+}
