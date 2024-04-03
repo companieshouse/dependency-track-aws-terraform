@@ -42,3 +42,20 @@ data "aws_ssm_parameter" "secret" {
 data "aws_acm_certificate" "companies_house" {
   domain = "*.${local.companies_house_domain}"
 }
+
+data "aws_caller_identity" "current" {}
+
+data "aws_iam_policy_document" "kms_key_policy" {
+  statement {
+    sid    = "AllowIAMPermissions"
+    effect = "Allow"
+    actions = [
+      "kms:*"
+    ]
+    resources = ["*"]
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+    }
+  }
+}
