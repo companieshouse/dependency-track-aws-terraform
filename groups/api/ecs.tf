@@ -76,18 +76,18 @@ module "server-ecs-service" {
   }]
 
   additional_sidecar_containers = [{
-    image: "${data.aws_ecr_repository.proxy_sidecar.repository_url}:${var.sidecar_version}",
-    name: local.sidecar_container_name,
-    memory: local.sidecar_requirements.memory,
-    cpu: local.sidecar_requirements.cpu,
-    port_mappings: [{
-      container_port: var.sidecar_port,
-      host_port: var.sidecar_port
+    image : local.sidecar_image,
+    name : local.sidecar_container_name,
+    memory : local.sidecar_requirements.memory,
+    cpu : local.sidecar_requirements.cpu,
+    port_mappings : [{
+      container_port : var.sidecar_port,
+      host_port : var.sidecar_port
     }],
-    essential: true,
-    depends_on: [
+    essential : true,
+    depends_on : [
       {
-        container_name: local.service_name
+        container_name : local.service_name
       }
     ]
   }]
