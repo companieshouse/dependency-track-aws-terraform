@@ -10,8 +10,8 @@ module "server-ecs-service" {
   aws_region              = var.aws_region
   aws_profile             = var.aws_profile
   vpc_id                  = data.aws_vpc.vpc.id
-  ecs_cluster_id          = data.aws_ecs_cluster.rand.id
-  ecs_cluster_name        = data.aws_ecs_cluster.rand.cluster_name
+  ecs_cluster_id          = data.aws_ecs_cluster.ecs.id
+  ecs_cluster_name        = data.aws_ecs_cluster.ecs.cluster_name
   task_execution_role_arn = data.aws_iam_role.ecs-task-execution-role.arn
 
   # Load balancer configuration
@@ -76,18 +76,18 @@ module "server-ecs-service" {
   }]
 
   additional_sidecar_containers = [{
-    image: "${data.aws_ecr_repository.proxy_sidecar.repository_url}:${var.sidecar_version}",
-    name: local.sidecar_container_name,
-    memory: local.sidecar_requirements.memory,
-    cpu: local.sidecar_requirements.cpu,
-    port_mappings: [{
-      container_port: var.sidecar_port,
-      host_port: var.sidecar_port
+    image : local.sidecar_image,
+    name : local.sidecar_container_name,
+    memory : local.sidecar_requirements.memory,
+    cpu : local.sidecar_requirements.cpu,
+    port_mappings : [{
+      container_port : var.sidecar_port,
+      host_port : var.sidecar_port
     }],
-    essential: true,
-    depends_on: [
+    essential : true,
+    depends_on : [
       {
-        container_name: local.service_name
+        container_name : local.service_name
       }
     ]
   }]

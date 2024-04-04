@@ -34,9 +34,9 @@ variable "service_scaleup_schedule" {
 variable "use_fargate" {
   type = bool
 }
-variable "sidecar_version" {
-  type = string
-}
 variable "sidecar_port" {
   type = number
+}
+variable "dependency_track_aws_terraform_version" {
+  type = string
 }

@@ -1,9 +1,7 @@
-applications_developer_version = "4.10.1"
-aws_profile = "development-eu-west-2"
+aws_profile = "shared-services-eu-west-2"
 aws_region = "eu-west-2"
 desired_task_count = 1
-docker_registry = "docker.io"
-environment = "randd"
+environment = "common"
 service_autoscale_enabled = false
 service_autoscale_target_value_cpu = 1
 service_scaledown_schedule = "30 20 ? * FRI *"
