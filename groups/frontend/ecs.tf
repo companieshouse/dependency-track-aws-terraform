@@ -10,8 +10,8 @@ module "client-ecs-service" {
   aws_region              = var.aws_region
   aws_profile             = var.aws_profile
   vpc_id                  = data.aws_vpc.vpc.id
-  ecs_cluster_id          = data.aws_ecs_cluster.rand.id
-  ecs_cluster_name        = data.aws_ecs_cluster.rand.cluster_name
+  ecs_cluster_id          = data.aws_ecs_cluster.stack_cluster.id
+  ecs_cluster_name        = data.aws_ecs_cluster.stack_cluster.cluster_name
   task_execution_role_arn = data.aws_iam_role.ecs-task-execution-role.arn
 
   # Load balancer configuration
@@ -40,7 +40,7 @@ module "client-ecs-service" {
   required_cpus                      = local.client_requirements.cpu
   required_memory                    = local.client_requirements.memory
   use_fargate                        = var.use_fargate
-  fargate_subnets                    = local.application_subnet_ids
+  fargate_subnets                    = local.monitoring_subnet_ids
   service_autoscale_enabled          = var.service_autoscale_enabled
   service_autoscale_target_value_cpu = var.service_autoscale_target_value_cpu
   service_scaledown_schedule         = var.service_scaledown_schedule

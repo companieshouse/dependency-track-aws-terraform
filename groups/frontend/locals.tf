@@ -10,20 +10,16 @@ locals {
   healthcheck_interval             = 300
   healthcheck_path                 = "/"
   healthcheck_matcher              = "200-299"
-  application_subnet_ids           = data.aws_subnets.application.ids
+  monitoring_subnet_ids           = data.aws_subnets.monitoring.ids
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
-  kms_alias     = "alias/${var.aws_profile}/environment-services-kms"
 
-  vpc_name                     = local.stack_secrets["vpc_name"]
-  private_subnets_name_pattern = local.stack_secrets["private_subnet_pattern"]
-  dev_hosted_zone_name         = local.stack_secrets["dev_hosted_zone_name"]
+  vpc_name                        = local.stack_secrets["vpc_name"]
+  monitoring_subnets_name_pattern = local.stack_secrets["monitoring_subnet_pattern"]
+  companies_house_domain          = local.stack_secrets["companies_house_domain"]
 
   alb_name_parameter_name = "/${local.name_prefix}/alb-name"
-  ecs_cluster_name        = "${local.rand_stack_name}-${var.environment}-stack"
-  db_instance_endpoint    = data.aws_ssm_parameter.secret["/${local.name_prefix}/db-url"].value
-
-  db_name = data.aws_ssm_parameter.secret["/${local.name_prefix}/db-name"].value
+  ecs_cluster_name        = data.aws_ssm_parameter.stack_cluster_name.value
 
   health_check_grace_period_seconds = 60 * 60 # 1 hour
 
@@ -37,15 +33,24 @@ locals {
   client_task_secrets = []
 
   client_task_environment = [
-    { "name" : "API_BASE_URL", "value" : "https://dependency-track.${local.rand_stack_name}.${local.dev_hosted_zone_name}" }
+    { "name" : "API_BASE_URL", "value" : "https://dependency-track.${local.companies_house_domain}" }
   ]
 
   cpu_memory_unit = 1024
 
   client_requirements = {
-    cpu             = 0.5 * local.cpu_memory_unit
-    memory          = 1 * local.cpu_memory_unit
-    docker_registry = "dependencytrack/frontend"
+    cpu             = 2 * local.cpu_memory_unit
+    memory          = 4 * local.cpu_memory_unit
+    docker_registry = "dependencytrack-frontend"
   }
   client_lb_listener_paths = ["/*", "/"]
+  default_tags = {
+    Environment = var.environment
+    ServiceName = local.service_name
+    StackName   = local.stack_name
+    Terraform   = true
+    Version     = var.dependency_track_aws_terraform_version
+    Repository  = "companieshouse/dependency-track-aws-terraform"
+    Group       = "frontend"
+  }
 }
