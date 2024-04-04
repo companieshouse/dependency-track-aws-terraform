@@ -21,4 +21,13 @@ locals {
   ecs_cluster_name        = "${local.rand_stack_name}-${var.environment}-stack"
   db_password             = random_password.db_password.result
   db_name                 = "dtrack"
+
+  default_tags = {
+    Environment = var.environment
+    StackName   = local.stack_name
+    Terraform   = true
+    Version     = var.version
+    Repository  = "companieshouse/dependency-track-aws-terraform"
+    Group       = "infrastructure"
+  }
 }
