@@ -10,8 +10,8 @@ module "server-ecs-service" {
   aws_region              = var.aws_region
   aws_profile             = var.aws_profile
   vpc_id                  = data.aws_vpc.vpc.id
-  ecs_cluster_id          = data.aws_ecs_cluster.rand.id
-  ecs_cluster_name        = data.aws_ecs_cluster.rand.cluster_name
+  ecs_cluster_id          = data.aws_ecs_cluster.ecs.id
+  ecs_cluster_name        = data.aws_ecs_cluster.ecs.cluster_name
   task_execution_role_arn = data.aws_iam_role.ecs-task-execution-role.arn
 
   # Load balancer configuration

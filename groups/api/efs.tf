@@ -64,6 +64,6 @@ resource "aws_security_group" "efs_sg" {
 
 resource "aws_efs_mount_target" "server_efs" {
   file_system_id  = aws_efs_file_system.server_efs.id
-  subnet_id       = data.aws_subnets.application.ids[0]
+  subnet_id       = data.aws_subnets.monitoring.ids[0]
   security_groups = [aws_security_group.efs_sg.id]
 }
