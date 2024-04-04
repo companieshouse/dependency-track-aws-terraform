@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "server_efs_policy" {
 }
 
 data "aws_ssm_parameter" "kms_key_alias" {
-  name            = "/${local.name_prefix}/kms_key_alias"
+  name            = "/${local.name_prefix}/kms-key-alias"
   with_decryption = true
 }
 

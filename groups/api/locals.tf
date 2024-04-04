@@ -16,7 +16,7 @@ locals {
   monitoring_subnets_name_pattern = local.stack_secrets["monitoring_subnet_pattern"]
   companies_house_domain          = local.stack_secrets["companies_house_domain"]
 
-  alb_name_parameter_name = "/${local.name_prefix}/alb_name"
+  alb_name_parameter_name = "/${local.name_prefix}/alb-name"
   ecs_cluster_name        = data.aws_ssm_parameter.stack_cluster_name.value
   db_instance_endpoint    = data.aws_ssm_parameter.secret["/${local.name_prefix}/db-url"].value
 

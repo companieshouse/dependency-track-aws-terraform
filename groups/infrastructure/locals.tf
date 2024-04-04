@@ -17,8 +17,6 @@ locals {
 
   asg_ingress_prefix_list = [data.aws_ec2_managed_prefix_list.admin.id, data.aws_ec2_managed_prefix_list.shared_services_management.id]
 
-  alb_name_parameter_name = "/${local.rand_stack_name}-${var.environment}/alb_name"
-  ecs_cluster_name        = "${local.rand_stack_name}-${var.environment}-stack"
   db_password             = random_password.db_password.result
   db_name                 = "dtrack"
 
