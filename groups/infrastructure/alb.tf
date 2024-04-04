@@ -10,7 +10,7 @@ module "alb" {
   ssl_certificate_arn        = data.aws_acm_certificate.companies_house.arn
   subnet_ids                 = data.aws_subnets.monitoring.ids
   vpc_id                     = data.aws_vpc.vpc.id
-  internal                   = false
+  internal                   = true
   enable_deletion_protection = false
 
   create_security_group = true
