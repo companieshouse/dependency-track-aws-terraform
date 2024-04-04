@@ -19,7 +19,7 @@ locals {
   private_subnets_name_pattern = local.stack_secrets["private_subnet_pattern"]
   dev_hosted_zone_name         = local.stack_secrets["dev_hosted_zone_name"]
 
-  alb_name_parameter_name = "/${local.name_prefix}/alb_name"
+  alb_name_parameter_name = "/${local.name_prefix}/alb-name"
   ecs_cluster_name        = "${local.rand_stack_name}-${var.environment}-stack"
   db_instance_endpoint    = data.aws_ssm_parameter.secret["/${local.name_prefix}/db-url"].value
 

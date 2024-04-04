@@ -5,14 +5,14 @@
 
 
 resource "aws_ssm_parameter" "rand_alb_name" {
-  name   = "/${local.name_prefix}/alb_name"
+  name   = "/${local.name_prefix}/alb-name"
   type   = "SecureString"
   value  = module.alb.application_load_balancer_name
   key_id = aws_kms_key.key.id
 }
 
 resource "aws_ssm_parameter" "rand_alb_sg" {
-  name   = "/${local.name_prefix}/alb_security_group_id"
+  name   = "/${local.name_prefix}/alb-security-group-id"
   type   = "SecureString"
   value  = module.alb.security_group_id
   key_id = aws_kms_key.key.id
