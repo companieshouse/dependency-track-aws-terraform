@@ -8,6 +8,7 @@ provider "aws" {
       Terraform   = true
       Version     = var.version
       Repository  = "companieshouse/dependency-track-aws-terraform"
+      Group       = "infrastructure"
     }
   }
 }
