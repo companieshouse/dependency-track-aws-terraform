@@ -9,12 +9,12 @@ data "aws_vpc" "vpc" {
   }
 }
 
-data "aws_ssm_parameter" "rand_alb_name" {
+data "aws_ssm_parameter" "alb_name" {
   name = local.alb_name_parameter_name
 }
 
 data "aws_lb" "dependency-track-lb" {
-  name = data.aws_ssm_parameter.rand_alb_name.value
+  name = data.aws_ssm_parameter.alb_name.value
 }
 
 data "aws_lb_listener" "dependency-track-lb-listener" {
@@ -22,12 +22,17 @@ data "aws_lb_listener" "dependency-track-lb-listener" {
   port              = 443
 }
 
-data "aws_ecs_cluster" "rand" {
+data "aws_ssm_parameter" "stack_cluster_name" {
+  name            = "/${local.name_prefix}/stack-cluster-name"
+  with_decryption = true
+}
+
+data "aws_ecs_cluster" "ecs" {
   cluster_name = local.ecs_cluster_name
 }
 
 #Get application subnet IDs
-data "aws_subnets" "application" {
+data "aws_subnets" "monitoring" {
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.vpc.id]
@@ -35,7 +40,7 @@ data "aws_subnets" "application" {
 
   filter {
     name   = "tag:Name"
-    values = [local.private_subnets_name_pattern]
+    values = [local.monitoring_subnets_name_pattern]
   }
 }
 
@@ -85,6 +90,6 @@ data "aws_ssm_parameter" "kms_key_alias" {
   with_decryption = true
 }
 
-data "aws_ecr_repository" "proxy_sidecar" {
-  name = "${local.name_prefix}-proxy-sidecar"
+data "aws_kms_key" "kms_key" {
+  key_id = data.aws_ssm_parameter.kms_key_alias.value
 }

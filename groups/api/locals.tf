@@ -2,20 +2,19 @@ locals {
   stack_name                       = "dependency-track"
   name_prefix                      = "${local.stack_name}-${var.environment}"
   service_name                     = "dep-track-api"
-  rand_stack_name                  = "rand"
   container_port                   = "8080"
   docker_repo                      = "docker.io"
   server_lb_listener_rule_priority = 6
   healthcheck_interval             = 300
   healthcheck_path                 = "/health"
   healthcheck_matcher              = "200-299"
-  application_subnet_ids           = data.aws_subnets.application.ids
+  monitoring_subnet_ids            = data.aws_subnets.monitoring.ids
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
 
-  vpc_name                     = local.stack_secrets["vpc_name"]
-  private_subnets_name_pattern = local.stack_secrets["private_subnet_pattern"]
-  dev_hosted_zone_name         = local.stack_secrets["dev_hosted_zone_name"]
+  vpc_name                        = local.stack_secrets["vpc_name"]
+  monitoring_subnets_name_pattern = local.stack_secrets["monitoring_subnet_pattern"]
+  companies_house_domain          = local.stack_secrets["companies_house_domain"]
 
   alb_name_parameter_name = "/${local.name_prefix}/alb-name"
   ecs_cluster_name        = data.aws_ssm_parameter.stack_cluster_name.value
@@ -61,7 +60,7 @@ locals {
   server_requirements = {
     cpu             = 4 * local.cpu_memory_unit
     memory          = 16 * local.cpu_memory_unit
-    docker_registry = "dependencytrack/apiserver"
+    docker_registry = "dependencytrack-apiserver"
   }
   sidecar_requirements = {
     cpu    = 0.5 * local.cpu_memory_unit
@@ -73,7 +72,18 @@ locals {
   }
   server_lb_listener_paths = ["/api/*", "/api"]
 
-  sidecar_environment = []
-  sidecar_secrets     = []
+  sidecar_environment    = []
+  sidecar_secrets        = []
   sidecar_container_name = "proxy-sidecar"
+  sidecar_image          = "${var.docker_registry}/dependencytrack-proxy-sidecar:${var.dependency_track_aws_terraform_version}"
+
+  default_tags = {
+    Environment = var.environment
+    ServiceName = local.service_name
+    StackName   = local.stack_name
+    Terraform   = true
+    Version     = var.dependency_track_aws_terraform_version
+    Repository  = "companieshouse/dependency-track-aws-terraform"
+    Group       = "api"
+  }
 }
