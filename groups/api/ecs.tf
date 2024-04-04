@@ -45,7 +45,7 @@ module "server-ecs-service" {
   total_service_memory = local.task_definition_requirements.memory
 
   use_fargate                        = var.use_fargate
-  fargate_subnets                    = local.application_subnet_ids
+  fargate_subnets                    = local.monitoring_subnet_ids
   service_autoscale_enabled          = var.service_autoscale_enabled
   service_autoscale_target_value_cpu = var.service_autoscale_target_value_cpu
   service_scaledown_schedule         = var.service_scaledown_schedule
