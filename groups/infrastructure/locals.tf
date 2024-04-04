@@ -26,7 +26,7 @@ locals {
     Environment = var.environment
     StackName   = local.stack_name
     Terraform   = true
-    Version     = var.version
+    Version     = var.dependency_track_aws_terraform_version
     Repository  = "companieshouse/dependency-track-aws-terraform"
     Group       = "infrastructure"
   }
