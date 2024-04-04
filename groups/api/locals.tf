@@ -12,7 +12,6 @@ locals {
   application_subnet_ids           = data.aws_subnets.application.ids
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
-  kms_alias     = "alias/${var.aws_profile}/environment-services-kms"
 
   vpc_name                     = local.stack_secrets["vpc_name"]
   private_subnets_name_pattern = local.stack_secrets["private_subnet_pattern"]
