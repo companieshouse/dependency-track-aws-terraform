@@ -8,6 +8,7 @@ locals {
   healthcheck_interval             = 300
   healthcheck_path                 = "/health"
   healthcheck_matcher              = "200-299"
+  monitoring_subnet_ids            = data.aws_subnets.monitoring.ids
 
   stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
 
