@@ -28,7 +28,7 @@ data "aws_ssm_parameter" "stack_cluster_name" {
   with_decryption = true
 }
 
-data "aws_ecs_cluster" "ecs" {
+data "aws_ecs_cluster" "stack_cluster" {
   cluster_name = local.ecs_cluster_name
 }
 
