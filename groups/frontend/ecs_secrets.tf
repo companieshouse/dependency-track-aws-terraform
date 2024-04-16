@@ -1,7 +1,7 @@
 /*
 * Exposes the application secrets held in vault as SSM parameters
 */
-module "server-ecs-secrets" {
+module "frontend-ecs-secrets" {
   source = "git@github.com:companieshouse/terraform-modules//aws/ecs/secrets?ref=1.0.254"
 
   environment = var.environment
