@@ -10,7 +10,8 @@ locals {
   healthcheck_matcher              = "200-299"
   monitoring_subnet_ids            = data.aws_subnets.monitoring.ids
 
-  stack_secrets = jsondecode(data.vault_generic_secret.secrets.data_json)
+  stack_secrets       = jsondecode(data.vault_generic_secret.stack_secrets.data_json)
+  application_secrets = jsondecode(data.vault_generic_secret.stack_secrets.data_json)
 
   vpc_name                        = local.stack_secrets["vpc_name"]
   monitoring_subnets_name_pattern = local.stack_secrets["monitoring_subnet_pattern"]
@@ -31,9 +32,18 @@ locals {
     trimprefix(sec.name, "/${local.name_prefix}/") => sec.arn
   }
 
+  service_secrets_arn_map = {
+    for sec in module.server-ecs-secrets.secrets :
+    trimprefix(sec.name, "/${local.service_name}-${var.environment}/") => sec.arn
+  }
+
   server_task_secrets = [
     { "name" : "ALPINE_DATABASE_USERNAME", "valueFrom" : local.secrets_arn_map["db-user"] },
     { "name" : "ALPINE_DATABASE_PASSWORD", "valueFrom" : local.secrets_arn_map["db-password"] },
+    { "name" : "ALPINE_OIDC_CLIENT_ID", "valueFrom" : local.service_secrets_arn_map["oidc-client-id"] },
+    { "name" : "ALPINE_OIDC_ISSUER", "valueFrom" : local.service_secrets_arn_map["oidc-issuer"] },
+    { "name" : "ALPINE_OIDC_USERNAME_CLAIM", "valueFrom" : local.service_secrets_arn_map["oidc-username-claim"] },
+    { "name" : "ALPINE_OIDC_TEAMS_CLAIM", "valueFrom" : local.service_secrets_arn_map["oidc-teams-claim"] },
   ]
   # Other Database env vars:
 
@@ -52,7 +62,10 @@ locals {
     { "name" : "ALPINE_METRICS_ENABLED", "value" : "true" },
     { "name" : "ALPINE_WORKER_THREADS", "value" : "7" },
     { "name" : "ALPINE_WORKER_THREAD_MULTIPLIER", "value" : "3" },
-    { "name" : "EXTRA_JAVA_OPTIONS", "value" : "-Xms8g -Xmx16g -XX:ActiveProcessorCount=8" }
+    { "name" : "EXTRA_JAVA_OPTIONS", "value" : "-Xms8g -Xmx16g -XX:ActiveProcessorCount=8" },
+    { "name" : "ALPINE_OIDC_ENABLED", "value" : "true" },
+    { "name" : "ALPINE_OIDC_USER_PROVISIONING", "value" : "true" },
+    { "name" : "ALPINE_OIDC_TEAM_SYNCHRONIZATION", "value" : "true" }
   ]
 
   cpu_memory_unit = 1024

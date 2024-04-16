@@ -17,3 +17,11 @@ ommitted.)
 ![Deployed AWS resources and network diagram](./assets/dependency-track-aws-terraform.png "Deployed AWS Resources")
 
 The terraform is deployed using Companies House Concourse.
+
+## SSO Configuration
+
+SSO Is configured in both the API and Frontend via the environment variables.
+This configuration is stored as secrets within the vault and read into the
+applications via SSM Parameter Store.
+
+<!-- TODO: Flesh out with full SSO configuration once known -->

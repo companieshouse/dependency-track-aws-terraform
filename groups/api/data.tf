@@ -1,5 +1,9 @@
-data "vault_generic_secret" "secrets" {
+data "vault_generic_secret" "stack_secrets" {
   path = "applications/${var.aws_profile}/${var.environment}/${local.stack_name}-stack"
+}
+
+data "vault_generic_secret" "application_secrets" {
+  path = "applications/${var.aws_profile}/${var.environment}/${local.stack_name}-stack/${local.service_name}"
 }
 
 data "aws_vpc" "vpc" {
