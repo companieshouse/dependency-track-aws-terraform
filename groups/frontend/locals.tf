@@ -33,7 +33,7 @@ locals {
 
   application_secrets_arn_map = {
     for sec in module.server-ecs-secrets.secrets :
-    trimprefix(sec.name, "/${local.name_prefix}/") => sec.arn
+    trimprefix(sec.name, "/${local.service_name}-${var.environment}/") => sec.arn
   }
 
   client_task_secrets = [
