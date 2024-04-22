@@ -11,7 +11,7 @@ locals {
   monitoring_subnet_ids            = data.aws_subnets.monitoring.ids
 
   stack_secrets       = jsondecode(data.vault_generic_secret.stack_secrets.data_json)
-  application_secrets = jsondecode(data.vault_generic_secret.stack_secrets.data_json)
+  application_secrets = jsondecode(data.vault_generic_secret.application_secrets.data_json)
 
   vpc_name                        = local.stack_secrets["vpc_name"]
   monitoring_subnets_name_pattern = local.stack_secrets["monitoring_subnet_pattern"]
