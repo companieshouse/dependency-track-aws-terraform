@@ -36,6 +36,6 @@ variable "use_fargate" {
   type = bool
 }
 variable "dependency_track_aws_terraform_version" {
-  type = string
+  type    = string
   default = "0.1.0"
 }
