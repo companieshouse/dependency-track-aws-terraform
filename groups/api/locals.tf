@@ -25,6 +25,13 @@ locals {
 
   health_check_grace_period_seconds = 60 * 60 # 1 hour
 
+  parameter_store_secrets = {
+    "oidc-client-id": local.application_secrets["oidc-client-id"],
+    "oidc-issuer": local.application_secrets["oidc-issuer"],
+    "oidc-username-claim": local.application_secrets["oidc-username-claim"],
+    "oidc-teams-claim": local.application_secrets["oidc-teams-claim"],
+  }
+
   # create a map of secret name => secret arn to pass into ecs service module
   # using the trimprefix function to remove the prefixed path from the secret name
   secrets_arn_map = {

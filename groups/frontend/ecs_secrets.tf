@@ -6,6 +6,6 @@ module "frontend-ecs-secrets" {
 
   environment = var.environment
   name_prefix = "${local.service_name}-${var.environment}"
-  secrets     = local.application_secrets
+  secrets     = local.parameter_store_secrets
   kms_key_id  = data.aws_kms_key.kms_key.id
 }
