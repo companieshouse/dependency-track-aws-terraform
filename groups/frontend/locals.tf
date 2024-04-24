@@ -25,8 +25,8 @@ locals {
   health_check_grace_period_seconds = 60 * 60 # 1 hour
 
   parameter_store_secrets = {
-    "oidc-client-id": local.application_secrets["oidc-client-id"]
-    "oidc-issuer": local.application_secrets["oidc-issuer"]
+    "oidc-client-id" : local.application_secrets["oidc-client-id"]
+    "oidc-issuer" : local.application_secrets["oidc-issuer"]
   }
 
   # create a map of secret name => secret arn to pass into ecs service module
