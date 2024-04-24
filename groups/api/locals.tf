@@ -72,8 +72,7 @@ locals {
     { "name" : "EXTRA_JAVA_OPTIONS", "value" : "-Xms8g -Xmx16g -XX:ActiveProcessorCount=8" },
     { "name" : "ALPINE_OIDC_ENABLED", "value" : "true" },
     { "name" : "ALPINE_OIDC_USER_PROVISIONING", "value" : "true" },
-    { "name" : "ALPINE_OIDC_TEAM_SYNCHRONIZATION", "value" : "true" },
-    { "name" : "LOGGING_LEVEL", "value" : "DEBUG" }
+    { "name" : "ALPINE_OIDC_TEAM_SYNCHRONIZATION", "value" : "true" }
   ]
 
   cpu_memory_unit = 1024
