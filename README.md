@@ -41,7 +41,7 @@ groups to Dependency Track permissions.
 
 1. If the team does not exist in Dependency Track, this needs to be created
 2. Within Azure AD the Group needs to be created and then added to the Azure AD
-  Application registration (Raise a Service Now ticket)
+  Application registration. (Raise a Service Now ticket)
 3. From Azure AD copy the group ID (known as the `Object Id`)
 4. Within Dependency Track, under Access Management, Click on
   `OpenID Connect Groups` and then click `Create Group` Group name is the
