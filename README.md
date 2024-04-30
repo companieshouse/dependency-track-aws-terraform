@@ -50,4 +50,4 @@ groups to Dependency Track permissions.
 
 ## Maintenance instructions
 
-[Can be found on Confluence.](https://companieshouse.atlassian.net/wiki/spaces/RAND/pages/4600856593/Maintaining+Dependency+Track)
+[Can be found on Confluence.](https://companieshouse.atlassian.net/wiki/spaces/DEV/pages/4601348098/Maintaining+Dependency+Track)
