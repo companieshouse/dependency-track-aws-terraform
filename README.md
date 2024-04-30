@@ -47,3 +47,7 @@ groups to Dependency Track permissions.
   `OpenID Connect Groups` and then click `Create Group` Group name is the
   ID copied in the former step and then select the team this group should be
   assuming in Dependency Track.
+
+## Maintenance instructions
+
+[Can be found on Confluence.](https://companieshouse.atlassian.net/wiki/spaces/RAND/pages/4600856593/Maintaining+Dependency+Track)
