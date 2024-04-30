@@ -22,6 +22,28 @@ The terraform is deployed using Companies House Concourse.
 
 SSO Is configured in both the API and Frontend via the environment variables.
 This configuration is stored as secrets within the vault and read into the
-applications via SSM Parameter Store.
+applications via SSM Parameter Store. There is an application registration
+within Azure AD corresponding to Dependency Track which is configured
+[according to Dependency Track instructions.](https://docs.dependencytrack.org/getting-started/openidconnect-configuration/#azure-active-directory-app-registration)
+We have also configured it to only send the relevant groups since there
+is the
+[following issue with Dependency Track](https://github.com/DependencyTrack/dependency-track/issues/2150)
+which means it cannot handle a large number of Groups. This means that should
+different groups need to be setup they will also need to be registered with the
+application registration in Azure AD.
 
-<!-- TODO: Flesh out with full SSO configuration once known -->
+### Configuring SSO permissions
+
+To configure SSO there is a little bit of manual configuration to map the AD
+groups to Dependency Track permissions.
+
+#### Mapping an Azure AD Group to a Dependency Track Team
+
+1. If the team does not exist in Dependency Track, this needs to be created
+2. Within Azure AD the Group needs to be created and then added to the Azure AD
+  Application registration. (Raise a Service Now ticket)
+3. From Azure AD copy the group ID (known as the `Object Id`)
+4. Within Dependency Track, under Access Management, Click on
+  `OpenID Connect Groups` and then click `Create Group` Group name is the
+  ID copied in the former step and then select the team this group should be
+  assuming in Dependency Track.
