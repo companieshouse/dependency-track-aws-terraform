@@ -124,6 +124,15 @@ while IFS=',' read -r repository repo_type; do
         continue
     fi
 
+
+    # Prevent credential leakage
+    # shellcheck disable=SC2086
+    unset ${!_AWS*}
+    # shellcheck disable=SC2086
+    unset ${!AWS*}
+    # shellcheck disable=SC2086
+    unset ${!_DEFAULT_AWS*}
+
     TYPE="${repo_type}" \
         DEP_TRACK_PROJ_NAME="${repository}" \
         DEP_TRACK_PROJ_VER="${code_version}" \
