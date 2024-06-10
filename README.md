@@ -51,3 +51,32 @@ groups to Dependency Track permissions.
 ## Maintenance instructions
 
 [Can be found on Confluence.](https://companieshouse.atlassian.net/wiki/spaces/DEV/pages/4601348098/Maintaining+Dependency+Track)
+
+## Populating Dependency Track
+
+### Using script: [populate-dependency-track](./bin/populate-dependency-track)
+
+The script iterates over a list of repositories provided in a CSV file defining
+the repository name and language. It will then clone the repository locally
+before running the Concourse task to generate the SBOM and send to Dependency
+Track.
+
+**Example usage:**
+
+```sh
+$ cat ./repos
+overseas-entities-api,java
+overseas-entitites-web,node
+
+$ ./bin/populate-dependency-track -t ssplatform-team-development ./repos
+...
+
+```
+
+**Display help:**
+
+```sh
+$ ./bin/populate-dependency-track -h
+./bin/populate-dependency-track
+...
+```
