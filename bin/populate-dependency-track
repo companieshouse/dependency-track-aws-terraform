@@ -36,7 +36,7 @@ function clone_repo {
         fi
     else
         (
-            cd "${local_dir}" || exit 1
+            cd -- "${local_dir}" || exit 1
 
             if [[ -z "${branch_name}" ]]; then
                 git clone git@github.com:companieshouse/"${repo_name}".git
@@ -47,10 +47,11 @@ function clone_repo {
     fi
 }
 
+
 function resolve_version() {
     local repository_name="$1"
     (
-        cd "${local_dir}"/"${repository_name}" || exit 1
+        cd -- "${local_dir}"/"${repository_name}" || exit 1
 
         gh release view --json name --jq .name || git describe --tags --abbrev=0 || cat version
     )
@@ -60,7 +61,7 @@ function set_parameters() {
     DEP_TRACK_SERVER='((secrets.dependency-track-server))'
     DEP_TRACK_API_KEY='((secrets.dependency-track-api-key))'
     OTHER_CDXGEN_ENV_VARS=""
-    DEP_TRACK_PROJ_TAGS="auto-populated;upload-$(date +'%Y-%m-%dT%H:%M:%S')"
+    DEP_TRACK_PROJ_TAGS="auto-populated;upload-$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
     SEND_TO_DEP_TRACK="true"
     OTHER_CDXGEN_ENV_VARS='ANOTHER_ENV_VAR=yes'
 
@@ -91,7 +92,7 @@ repos_file="${1:?Repos list file required}"
 
 if [[ -z "${local_dir}" ]]; then
     temporary_directory="$(mktemp -d)"
-    trap 'rm -rf "${temporary_directory}"' EXIT
+    trap 'rm -rf -- "${temporary_directory}"' EXIT
 
     local_dir="${temporary_directory}"
 elif [[ ! -d "${local_dir}" ]]; then
