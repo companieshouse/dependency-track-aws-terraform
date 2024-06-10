@@ -37,7 +37,7 @@ function clone_repo {
     else
         (
             cd "${local_dir}" || exit 1
-            
+
             if [[ -z "${branch_name}" ]]; then
                 git clone git@github.com:companieshouse/"${repo_name}".git
             else
@@ -131,7 +131,7 @@ while IFS=',' read -r repository repo_type; do
         fly -t "${fly_target}" \
         execute \
         -c "${create_sbom_concourse_task}" \
-        -i source-code="${temporary_directory}"/"${repository}"
+        -i source-code="${local_dir}"/"${repository}"
     
     printf -- '%s=%s\n' "${repository}" "$?" >> "${repos_file}".out
     set +x
