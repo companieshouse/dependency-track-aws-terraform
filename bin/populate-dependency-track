@@ -124,7 +124,6 @@ while IFS=',' read -r repository repo_type; do
         continue
     fi
 
-    set -x
     TYPE="${repo_type}" \
         DEP_TRACK_PROJ_NAME="${repository}" \
         DEP_TRACK_PROJ_VER="${code_version}" \
@@ -134,6 +133,5 @@ while IFS=',' read -r repository repo_type; do
         -i source-code="${local_dir}"/"${repository}"
     
     printf -- '%s=%s\n' "${repository}" "$?" >> "${repos_file}".out
-    set +x
 
 done < "${repos_file}"
