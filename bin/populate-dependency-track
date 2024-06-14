@@ -170,7 +170,8 @@ while IFS=',' read -r repository repo_type; do
     fly -t "${fly_target}" \
     execute \
     -c "${create_sbom_concourse_task}" \
-    -i source-code="${local_dir}"/"${repository}"
+    -i source-code="${local_dir}"/"${repository}" \
+    -i version="${local_dir}"/"${repository}"
 
   printf -- '%s=%s\n' "${repository}" "$?" >>"${repos_file}".out
 
