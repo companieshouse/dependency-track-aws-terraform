@@ -68,7 +68,7 @@ $ cat ./repos
 overseas-entities-api,java
 overseas-entitites-web,node
 
-$ ./bin/populate-dependency-track -t ssplatform-team-development ./repos
+$ ./bin/populate-dependency-track -t <target> ./repos
 ...
 
 ```
