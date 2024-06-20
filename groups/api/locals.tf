@@ -83,8 +83,8 @@ locals {
     docker_registry = "dependencytrack-apiserver"
   }
   sidecar_requirements = {
-    cpu    = 0.5 * local.cpu_memory_unit
-    memory = local.cpu_memory_unit
+    cpu    = local.cpu_memory_unit
+    memory = 2 * local.cpu_memory_unit
   }
   task_definition_requirements = {
     cpu    = 8 * local.cpu_memory_unit
