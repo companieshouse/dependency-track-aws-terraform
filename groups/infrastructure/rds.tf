@@ -47,7 +47,7 @@ module "db" {
   identifier = local.name_prefix
 
   engine            = "postgres"
-  engine_version    = "14.7"
+  engine_version    = "14.12"
   instance_class    = "db.t4g.large"
   allocated_storage = 20
 
