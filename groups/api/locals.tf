@@ -90,7 +90,7 @@ locals {
     cpu    = 8 * local.cpu_memory_unit
     memory = 20 * local.cpu_memory_unit
   }
-  server_lb_listener_paths = ["/api/*", "/api"]
+  server_lb_listener_paths = ["/api/*", "/api", "/mirror/nvd*"]
 
   sidecar_environment    = []
   sidecar_secrets        = []
