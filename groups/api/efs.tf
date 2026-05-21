@@ -63,7 +63,9 @@ resource "aws_security_group" "efs_sg" {
 }
 
 resource "aws_efs_mount_target" "server_efs" {
+  for_each        = toset(data.aws_subnets.monitoring.ids)
+
   file_system_id  = aws_efs_file_system.server_efs.id
-  subnet_id       = data.aws_subnets.monitoring.ids[0]
+  subnet_id       = each.value
   security_groups = [aws_security_group.efs_sg.id]
 }
